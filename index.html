@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curriculum Reference – Ethiopian New Curriculum Grades 9–12</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--math:#6366f1;--math-light:#eef2ff;--physics:#f59e0b;--physics-light:#fffbeb;--chemistry:#10b981;--chemistry-light:#ecfdf5;--biology:#ef4444;--biology-light:#fef2f2;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;--g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--g700:#374151;--g800:#1f2937;--g900:#111827}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--g100);color:var(--g800);line-height:1.65;font-size:15px}
+.app{display:flex;min-height:100vh}
+.sidebar{width:280px;background:var(--g900);color:#fff;padding:1.5rem 0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;flex-shrink:0}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--g600);border-radius:4px}
+.sidebar h2{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--g400);padding:0 1.5rem .5rem;font-weight:600}
+.sidebar .brand{padding:0 1.5rem 1.25rem;border-bottom:1px solid var(--g700);margin-bottom:1rem}
+.sidebar .brand h1{font-size:1rem;font-weight:700;color:#fff}
+.sidebar .brand p{font-size:.75rem;color:var(--g400);margin-top:.2rem}
+.nav-main{margin-bottom:1rem}
+.nav-main a{display:block;padding:.45rem 1.5rem;color:var(--g400);text-decoration:none;font-size:.825rem;font-weight:500;border-left:3px solid transparent;transition:all .15s;cursor:pointer}
+.nav-main a:hover{background:rgba(255,255,255,.05);color:#fff}
+.nav-main a.active{border-left-color:#fff;color:#fff;font-weight:600}
+.nav-divider{height:1px;background:var(--g700);margin:0 1.5rem 1rem}
+.sidebar nav a{display:block;padding:.4rem 1.5rem;color:var(--g300);text-decoration:none;font-size:.825rem;border-left:3px solid transparent;transition:all .15s}
+.sidebar nav a:hover{background:rgba(255,255,255,.05);color:#fff}
+.sidebar nav a.sm{border-left-color:var(--math)}
+.sidebar nav a.sp{border-left-color:var(--physics)}
+.sidebar nav a.sc{border-left-color:var(--chemistry)}
+.sidebar nav a.sb{border-left-color:var(--biology)}
+.sidebar nav a.grade{font-weight:600;color:#fff;margin-top:.5rem}
+.sidebar nav a.unit{padding-left:2.5rem;font-size:.8rem}
+.main{margin-left:280px;flex:1;padding:2rem 3rem 4rem;max-width:960px}
+.page{display:none}
+.page.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.top-bar{position:sticky;top:0;background:rgba(243,244,246,.92);backdrop-filter:blur(8px);padding:1rem 0 .75rem;margin-bottom:1.5rem;z-index:50;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.top-bar h1{font-size:1.15rem;font-weight:700;color:var(--g900)}
+.top-bar .meta{font-size:.78rem;color:var(--g500)}
+.top-bar .legend{display:flex;gap:.5rem;flex-wrap:wrap}
+.top-bar .legend span{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:600}
+.top-bar .legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.st{display:none;background:var(--g800);color:#fff;border:none;padding:.4rem .75rem;border-radius:6px;font-size:.85rem;cursor:pointer}
+.st:hover{background:var(--g700)}
+.section-title{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--g800)}
+.section-sub{font-size:.82rem;color:var(--g500);margin-top:-.5rem;margin-bottom:1rem}
+/* Dashboard */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-card{background:#fff;border-radius:12px;padding:1.25rem;border:1px solid var(--g200);text-align:center}
+.stat-card .num{font-size:2.2rem;font-weight:800;line-height:1.2;color:var(--g900)}
+.stat-card .label{font-size:.78rem;color:var(--g500);font-weight:500;margin-top:.25rem}
+.stat-card .sub{font-size:.7rem;color:var(--g400);margin-top:.15rem}
+.subj-breakdown{background:#fff;border-radius:12px;border:1px solid var(--g200);padding:1.5rem;margin-bottom:2rem}
+.subj-bar{display:flex;align-items:center;gap:1rem;margin-bottom:.5rem}
+.subj-bar .name{width:75px;font-weight:700;font-size:.85rem;flex-shrink:0}
+.subj-bar .track{flex:1;height:24px;background:var(--g100);border-radius:6px;overflow:hidden}
+.subj-bar .track .seg{height:100%;border-radius:6px;transition:width .6s ease;min-width:4px}
+.subj-bar .count{width:55px;text-align:right;font-size:.8rem;color:var(--g500);flex-shrink:0}
+.grade-badges{display:flex;gap:.35rem;margin-bottom:1rem;margin-left:calc(75px + 1rem)}
+.grade-badges:last-child{margin-bottom:0}
+.badge{display:inline-block;font-size:.68rem;font-weight:600;padding:.15rem .5rem;border-radius:4px;background:var(--g100);color:var(--g600)}
+.chart-wrap{background:#fff;border-radius:12px;border:1px solid var(--g200);padding:1.5rem;margin-bottom:2rem}
+.chart-svg{width:100%;height:auto;display:block}
+.chart-legend{display:flex;gap:1rem;justify-content:center;margin-top:.75rem;flex-wrap:wrap}
+.chart-legend span{display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:600}
+.chart-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+/* Subject tabs */
+.subj-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.subj-tab{padding:.5rem 1.25rem;border:2px solid var(--g200);background:#fff;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .15s;color:var(--g600)}
+.subj-tab:hover{border-color:var(--g300)}
+.subj-tab.active{border-color:var(--tab-color);color:var(--tab-color);background:var(--g50)}
+.grade-tabs{display:flex;gap:.35rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.grade-tab{padding:.35rem .9rem;border:1.5px solid var(--g200);background:#fff;border-radius:6px;font-weight:600;font-size:.78rem;cursor:pointer;transition:all .15s;color:var(--g500)}
+.grade-tab:hover{border-color:var(--g300);color:var(--g700)}
+.grade-tab.active{background:var(--g800);border-color:var(--g800);color:#fff}
+/* Subject page */
+.subject-section{margin-bottom:2rem}
+.subject-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:3px solid}
+.subject-header h2{font-size:1.5rem;font-weight:800}
+.sbj{display:inline-block;padding:.15rem .6rem;border-radius:4px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff}
+.sm .sbj{background:var(--math)}
+.sp .sbj{background:var(--physics)}
+.sc .sbj{background:var(--chemistry)}
+.sb .sbj{background:var(--biology)}
+.grade-block{margin-bottom:2rem;position:relative}
+.grade-connector{display:flex;justify-content:center;padding:.25rem 0;color:var(--g300);font-size:1rem}
+.grade-title{font-size:1.2rem;font-weight:700;margin-bottom:1rem;padding:.5rem 1rem;border-radius:8px;background:var(--g50);border:1px solid var(--g200)}
+.unit-card{background:#fff;border-radius:10px;border:1px solid var(--g200);margin-bottom:1rem;overflow:hidden;transition:box-shadow .2s}
+.unit-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.unit-card-header{padding:1rem 1.25rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none}
+.unit-card-header h3{font-size:1rem;font-weight:600}
+.unit-card-header .tog{font-size:.75rem;color:var(--g400);transition:transform .2s;flex-shrink:0;margin-left:1rem}
+.unit-card.cl .tog{transform:rotate(-90deg)}
+.unit-card.cl .top{display:none}
+.unit-card-body{padding:0 1.25rem 1.25rem}
+.ov{font-style:italic;color:var(--g500);font-size:.875rem;margin-bottom:.75rem;padding:.5rem .75rem;background:var(--g50);border-radius:6px;border-left:3px solid var(--g300)}
+.top{margin-bottom:1rem}
+.top:last-child{margin-bottom:0}
+.top h4{font-size:.9rem;font-weight:600;margin-bottom:.25rem;color:var(--g700)}
+.top ul{list-style:none;padding:0}
+.top li{position:relative;padding-left:1rem;font-size:.85rem;color:var(--g600);line-height:1.55}
+.top li::before{content:"–";position:absolute;left:0;color:var(--g400)}
+.lbl{font-weight:600;color:var(--g700)}
+.fml{font-family:'Times New Roman','CMU Serif',serif;font-style:italic;color:var(--g800);background:var(--g50);padding:.1rem .4rem;border-radius:3px;font-size:.9rem}
+.kt{display:inline-block;background:var(--g100);padding:0 .4rem;border-radius:3px;font-size:.8rem;color:var(--g600);font-weight:500}
+.sm .unit-card-header{background:var(--math-light)}
+.sm .unit-card-header h3{color:var(--math)}
+.sm .ov{border-left-color:var(--math)}
+.sm .subject-header{border-bottom-color:var(--math)}
+.sp .unit-card-header{background:var(--physics-light)}
+.sp .unit-card-header h3{color:var(--physics)}
+.sp .ov{border-left-color:var(--physics)}
+.sp .subject-header{border-bottom-color:var(--physics)}
+.sc .unit-card-header{background:var(--chemistry-light)}
+.sc .unit-card-header h3{color:var(--chemistry)}
+.sc .ov{border-left-color:var(--chemistry)}
+.sc .subject-header{border-bottom-color:var(--chemistry)}
+.sb .unit-card-header{background:var(--biology-light)}
+.sb .unit-card-header h3{color:var(--biology)}
+.sb .ov{border-left-color:var(--biology)}
+.sb .subject-header{border-bottom-color:var(--biology)}
+/* Study plan 65-day */
+.schedule{background:#fff;border-radius:12px;border:1px solid var(--g200);padding:1.5rem;margin-bottom:2rem;overflow-x:auto}
+.schedule table{width:100%;border-collapse:collapse;min-width:600px}
+.schedule th,.schedule td{padding:.55rem .7rem;text-align:left;border-bottom:1px solid var(--g100);font-size:.78rem}
+.schedule th{background:var(--g50);font-weight:600;font-size:.68rem;text-transform:uppercase;color:var(--g500);letter-spacing:.04em}
+.schedule td:first-child{font-weight:600;color:var(--g700);white-space:nowrap}
+.schedule td:nth-child(3){font-weight:500}
+.slot{display:inline-block;padding:.15rem .5rem;border-radius:4px;font-weight:600;font-size:.72rem;color:#fff;white-space:nowrap}
+.slot.sm{background:var(--math)}
+.slot.sp{background:var(--physics)}
+.slot.sc{background:var(--chemistry)}
+.slot.sb{background:var(--biology)}
+.slot.rv{background:var(--g400)}
+.slot.rs{background:var(--g200);color:var(--g500)}
+.day-sched{background:#fff;border-radius:12px;border:1px solid var(--g200);padding:1.5rem;margin-bottom:2rem}
+.day-sched .row{display:flex;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--g100);gap:1rem}
+.day-sched .row:last-child{border-bottom:none}
+.day-sched .time{width:100px;font-weight:600;font-size:.8rem;color:var(--g700);flex-shrink:0}
+.day-sched .desc{flex:1;font-size:.82rem;color:var(--g600)}
+.day-sched .dur{font-size:.72rem;color:var(--g400);width:50px;text-align:right;flex-shrink:0}
+.day-sched .row-header{background:var(--g50);margin:0 -1.5rem;padding:.5rem 1.5rem;border-bottom:1px solid var(--g200);font-weight:700;font-size:.85rem;color:var(--g800)}
+.plan-week{margin-bottom:1.5rem}
+.plan-week h4{font-size:.9rem;font-weight:700;margin-bottom:.5rem;color:var(--g800);display:flex;align-items:center;gap:.5rem}
+.plan-week .tag{display:inline-block;font-size:.65rem;font-weight:600;padding:.1rem .4rem;border-radius:3px;color:#fff}
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.plan-subj{background:var(--g50);border-radius:8px;padding:.6rem .8rem;border:1px solid var(--g200)}
+.plan-subj .pname{font-size:.78rem;font-weight:700;margin-bottom:.2rem}
+.plan-subj .punits{font-size:.75rem;color:var(--g500)}
+.totals-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.75rem;padding:.5rem .8rem;background:var(--g50);border-radius:8px;font-size:.78rem;color:var(--g600)}
+.totals-row strong{color:var(--g800)}
+/* Flow chart */
+.flow-wrap{background:#fff;border-radius:12px;border:1px solid var(--g200);padding:1.5rem;margin-bottom:2rem;overflow-x:auto}
+.flow-svg{display:block;width:100%;height:auto}
+.flow-box{cursor:pointer;transition:opacity .2s}
+.flow-box:hover{opacity:.85}
+.flow-box rect{stroke-width:1.5;transition:stroke-width .15s}
+.flow-box:hover rect{stroke-width:2.5}
+.flow-label{font-size:9px;font-weight:600;text-anchor:middle;pointer-events:none}
+.flow-sub{font-size:7px;text-anchor:middle;fill:var(--g500);pointer-events:none}
+.flow-arrow{fill:none;stroke-width:1.8;stroke-linejoin:round;opacity:.7}
+.flow-arrow-hl{fill:none;stroke-width:2.5;opacity:1}
+.flow-edge-label{font-size:7px;text-anchor:middle;fill:var(--g600);font-style:italic}
+.grade-col-line{stroke:var(--g100);stroke-width:1;stroke-dasharray:4,3}
+.grade-col-title{font-size:12px;font-weight:700;text-anchor:middle;fill:var(--g700)}
+/* Bottom nav */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--g200);z-index:200;justify-content:space-around;padding:.3rem 0 env(safe-area-inset-bottom,.3rem);box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:.1rem;padding:.2rem .5rem;color:var(--g400);text-decoration:none;font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;transition:color .15s;border:none;background:none}
+.bottom-nav a:hover{color:var(--g600)}
+.bottom-nav a.active{color:var(--g800)}
+.bottom-nav a .nav-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center}
+.bottom-nav a .nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bottom-nav a.active .nav-icon svg{stroke-width:2.5}
+@media(max-width:768px){
+.sidebar{transform:translateX(-100%);transition:transform .25s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;padding:1rem 1.25rem 5rem}
+.st{display:inline-flex;align-items:center;gap:.4rem}
+.bottom-nav{display:flex}
+.subject-header h2{font-size:1.2rem}
+.unit-card-header{padding:.75rem 1rem}
+.unit-card-body{padding:0 1rem 1rem}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.stat-card{padding:1rem}
+.stat-card .num{font-size:1.6rem}
+.grade-badges{margin-left:0}
+.subj-bar{flex-wrap:wrap;gap:.5rem}
+.subj-bar .name{width:auto}
+.subj-bar .count{width:auto}
+.plan-grid{grid-template-columns:1fr}
+.schedule td,.schedule th{padding:.4rem .5rem;font-size:.7rem}
+}
+@media(max-width:480px){
+.stats-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+.stat-card{padding:.75rem}
+.main{padding:.75rem .75rem 5rem}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+<div class="brand"><h1>Curriculum Reference</h1><p>Grades 9–12 · Math · Physics · Chemistry · Biology</p></div>
+<nav class="nav-main">
+<a data-page="dashboard" class="active">Dashboard</a>
+<a data-page="subjects">Subjects</a>
+<a data-page="flow">Flow</a>
+<a data-page="studyplan">65-Day Plan</a>
+</nav>
+</aside>
+<div class="main">
+<div class="top-bar">
+<div><h1>Ethiopian New Curriculum</h1><div class="meta">Educational Reference · Grades 9–12</div></div>
+<div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+<div class="legend" id="legend"></div>
+<button class="st" onclick="toggleSidebar()">☰ Menu</button>
+</div>
+</div>
+<div id="page-dashboard" class="page active"></div>
+<div id="page-subjects" class="page"></div>
+<div id="page-flow" class="page"></div>
+<div id="page-studyplan" class="page"></div>
+</div>
+</div>
+<nav class="bottom-nav" id="bottomNav">
+<a data-page="dashboard" class="active">
+<span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></span>
+<span>Dashboard</span>
+</a>
+<a data-page="subjects">
+<span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
+<span>Subjects</span>
+</a>
+<a data-page="flow">
+<span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><path d="M8 6h8l2 6-2 6H8"/></svg></span>
+<span>Flow</span>
+</a>
+<a data-page="studyplan">
+<span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 2v4M16 2v4"/></svg></span>
+<span>Plan</span>
+</a>
+</nav>
+<script>
+// ═══ DATA ═══
+const C=[
+{k:"math",c:"sm",s:"Math",n:"Mathematics",g:[
+{n:9,a:"m9",u:[
+{n:1,i:"m9-u1",t:"Further on Sets",o:"Builds on basic set concepts from earlier grades, introducing formal set notation, set operations, and applications using Venn diagrams.",p:[
+{n:"1.1",t:"Sets and Elements",i:[["Main Topics","Definition of a set, elements, roster and set-builder notation, well-defined sets, empty set, finite and infinite sets."]]},
+{n:"1.2",t:"Set Description",i:[["Main Topics","Describing sets in words, listing (roster) method, rule (set-builder) method."],["Key Terms",["Roster Notation","Set-Builder Notation","Universal Set"],"kt"]]},
+{n:"1.3",t:"Operations on Sets",i:[["Main Topics","Union (∪), Intersection (∩), Complement (′), Difference (−), Venn diagram representations."],["Key Terms",["Union","Intersection","Complement","Disjoint Sets"],"kt"]]},
+{n:"1.4",t:"Applications of Set Operations",i:[["Learning Outcomes","Solve practical problems involving two or three sets using Venn diagrams; apply set theory to real-life situations."]]}
+]},
+{n:2,i:"m9-u2",t:"The Number System",o:"Explores the structural differences between rational and irrational numbers, radical operations, and representations on the continuous real coordinate line.",p:[
+{n:"2.1",t:"Rational Numbers",i:[["Main Topics","Definition of rational numbers, decimal fractions (terminating and repeating), ordering elements."],["Important Concepts","Every rational can be formulated as a/b where a, b ∈ ℤ and b ≠ 0."],["Key Terms",["Periodic Decimal","Terminating Decimal","Set of Integers"],"kt"]]},
+{n:"2.2",t:"Irrational Numbers and Real Numbers",i:[["Main Topics","Non-repeating non-terminating decimals, definition of ℚ', density properties on the number axis."],["Important Concepts","Proof of irrationality of √2, complete coverage of ℝ = ℚ ∪ ℚ'."],["Learning Outcomes","Graphically approximate square roots using right-angled triangles."]]},
+{n:"2.3",t:"Radicals and Radical Simplification",i:[["Main Topics","Laws of radicals, root operations, rationalizing denominators."],["Formulas",["ⁿ√(ab) = ⁿ√a · ⁿ√b","1/(√a+√b) = (√a−√b)/(a−b)"],"fml"]]}
+]},
+{n:3,i:"m9-u3",t:"Solving Equations",o:"Equips students with analytical tools to resolve missing variables from linear relationships and quadratic polynomial environments.",p:[
+{n:"3.1",t:"Linear Equations in One Variable",i:[["Main Topics","Algebraic balancing, parentheses distribution, practical applications."],["Formulas",["ax + b = 0 ⇒ x = −b/a"],"fml"]]},
+{n:"3.2",t:"Quadratic Equations in One Variable",i:[["Main Topics","Factorization, Completing the Square, The Quadratic Formula, Discriminant analysis."],["Formulas",["ax² + bx + c = 0","x = (−b ± √(b²−4ac))/(2a)","D = b² − 4ac"],"fml"],["Key Terms",["Discriminant","Perfect Square Trinomial","Complex Conjugate"],"kt"]]}
+]},
+{n:4,i:"m9-u4",t:"Solving Inequalities",o:"Investigates variable constraints across ordered fields, mapping solutions onto discrete interval notation.",p:[
+{n:"4.1",t:"Linear Inequalities in One Variable",i:[["Important Concepts","Reversal of directional signs whenever multiplying or dividing by a negative real value."],["Learning Outcomes","Graph open, closed, and semi-closed boundary solutions."]]},
+{n:"4.2",t:"Systems of Linear Inequalities in Two Variables",i:[["Main Topics","Half-plane shading, intersecting region boundaries, coordinate plotting."]]}
+]},
+{n:5,i:"m9-u5",t:"Introduction to Trigonometry",o:"Introduces the geometric and proportional definitions of angular measurements using right triangles.",p:[
+{n:"5.1",t:"Trigonometric Ratios of Acute Angles",i:[["Main Topics","Sine, Cosine, and Tangent properties inside right triangles."],["Formulas",["sin θ = Opposite/Hypotenuse","cos θ = Adjacent/Hypotenuse","tan θ = Opposite/Adjacent","sin²θ + cos²θ = 1"],"fml"]]}
+]},
+{n:6,i:"m9-u6",t:"Regular Polygons",o:"Examines closed planar shapes containing equal sides and identical interior angles.",p:[
+{n:"6.1",t:"Properties of Regular Polygons",i:[["Main Topics","Interior angles sum, exterior angle calculations, apothems."],["Formulas",["S_int = (n−2)×180°","θ_ext = 360°/n"],"fml"]]}
+]},
+{n:7,i:"m9-u7",t:"Congruency and Similarity",o:"Investigates conditions under which shapes preserve spatial dimensions or exhibit identical scale metrics.",p:[
+{n:"7.1",t:"Congruent and Similar Triangles",i:[["Main Topics","Axioms for congruency (SSS, SAS, ASA, AAS), Similarity rules (AA, SAS)."],["Theorems","Area₁/Area₂ = (s₁/s₂)²"]]}
+]},
+{n:8,i:"m9-u8",t:"Vectors in Two Dimensions",o:"Introduces directed line segments operating on a two-dimensional Cartesian canvas.",p:[
+{n:"8.1",t:"Vector Components and Operations",i:[["Main Topics","Column vector formatting, component separation, vector addition, scalar manipulation."],["Formulas",["‖v⃗‖ = √(x² + y²)","θ = tan⁻¹(y/x)"],"fml"]]}
+]},
+{n:9,i:"m9-u9",t:"Statistics and Probability",o:"Introduces collection parameters for raw information and numerical forecasting benchmarks.",p:[
+{n:"9.1",t:"Data Management and Probability Foundations",i:[["Main Topics","Frequency tables, central tendencies, definition of standard spaces."],["Formulas",["P(A) = n(A)/n(S)","Mean x̄ = Σfᵢxᵢ / Σfᵢ"],"fml"]]}
+]}
+]},
+{n:10,a:"m10",u:[
+{n:1,i:"m10-u1",t:"Relations and Functions",o:"Establishes functional rules mapping distinct sets together.",p:[
+{n:"1.1",t:"Relations and Cartesian Products",i:[["Main Topics","Cartesian sets A × B, domains, operational ranges."]]},
+{n:"1.2",t:"Function Proofs and Evaluations",i:[["Main Topics","Unique definition of a function, vertical line tests, mapping variations."],["Theorems","A relation is a function iff each independent variable pairs with a unique target."]]}
+]},
+{n:2,i:"m10-u2",t:"Polynomial Functions",o:"Explores smooth algebraic trajectories powered by whole-number structural powers.",p:[
+{n:"2.1",t:"Higher-Degree Algebraic Polynomials",i:[["Main Topics","Polynomial long division, synthetic shortcuts, remainder and factor calculations."],["Theorems","Remainder Theorem: P(x)/(x−c) → remainder = P(c). Factor Theorem: (x−c) is a factor iff P(c)=0."]]}
+]},
+{n:3,i:"m10-u3",t:"Exponential and Logarithmic Functions",o:"Investigates accelerating compounding structures alongside their inverse functional behaviors.",p:[
+{n:"3.1",t:"Exponential Operations",i:[["Main Topics","Base structures f(x) = aˣ, growth metrics, decay calculations."]]},
+{n:"3.2",t:"Logarithmic Inversions",i:[["Main Topics","Logarithmic properties, base transformations, equation resolutions."],["Formulas",["logₐ(xy) = logₐ x + logₐ y","logₐ b = log_c b / log_c a"],"fml"],["Key Terms",["Natural Logarithm","Mantissa"],"kt"]]}
+]},
+{n:4,i:"m10-u4",t:"Trigonometric Functions",o:"Maps trigonometric relationships across a complete 360° Cartesian layout.",p:[
+{n:"4.1",t:"Unit Circle Coordinates and Wave Graphs",i:[["Main Topics","Radian scaling, periodic profiles, transformations of sine, cosine, tangent."],["Formulas",["Period = 2π/B for y = A sin(Bx − C)"],"fml"]]}
+]},
+{n:5,i:"m10-u5",t:"Circles",o:"Examines coordinate structures and geometric constraints tracking equidistant points.",p:[
+{n:"5.1",t:"Circle Equations and Geometry",i:[["Main Topics","Standard form (x−h)²+(y−k)² = r², tangent characteristics, inscribed angles."],["Theorems","Inscribed angles = ½ of central angle subtending the same arc."]]}
+]},
+{n:6,i:"m10-u6",t:"Solid Geometry",o:"Calculates three-dimensional volumetric capacities and material coatings.",p:[
+{n:"6.1",t:"Volumetric Calculations",i:[["Main Topics","Surface properties of prisms, cones, cylinders, and spheres."],["Formulas",["V_sphere = ⁴⁄₃πr³","V_cone = ⅓πr²h"],"fml"]]}
+]},
+{n:7,i:"m10-u7",t:"Coordinate Geometry",o:"Explores direct connections linking simple lines with spatial properties.",p:[
+{n:"7.1",t:"Straight Lines and Slopes",i:[["Main Topics","Midpoints, distances, parallel/perpendicular orientations."],["Formulas",["m₁·m₂ = −1 for orthogonal trajectories."],"fml"]]}
+]}
+]},
+{n:11,a:"m11",u:[
+{n:1,i:"m11-u1",t:"Further on Relations and Functions",o:"Delves deeper into advanced mapping categorizations and composite function structures.",p:[
+{n:"1.1",t:"Injective, Surjective, and Bijective Properties",i:[["Important Concepts","Inversion f⁻¹(x) is possible iff the mapping is bijective."]]},
+{n:"1.2",t:"Composition of Functions",i:[["Main Topics","Nested operations (f∘g)(x) = f(g(x)), composite domain evaluations."]]}
+]},
+{n:2,i:"m11-u2",t:"Rational Expressions and Rational Functions",o:"Evaluates ratios formed by polynomials, tracking asymptotic behavior and discontinuous bounds.",p:[
+{n:"2.1",t:"Rational Manipulation and Graphing Analysis",i:[["Main Topics","Simplification, vertical/horizontal/slant asymptotes."],["Key Terms",["Removable Discontinuity","Slant Asymptote"],"kt"]]}
+]},
+{n:3,i:"m11-u3",t:"Matrices",o:"Utilizes matrix structures to evaluate and manipulate multidimensional data grids.",p:[
+{n:"3.1",t:"Matrix Operations and Linear Conversions",i:[["Important Concepts","Matrix multiplication is non-commutative (AB ≠ BA)."],["Learning Outcomes","Transform linear systems into row-echelon format."]]}
+]},
+{n:4,i:"m11-u4",t:"Determinants and Their Properties",o:"Investigates key scalar metrics that determine matrix invertibility.",p:[
+{n:"4.1",t:"Determinant Metrics and Cramer's Solution",i:[["Main Topics","Cofactor expansion, matrix inversion, Cramer's rule."],["Formulas",["det|a b; c d| = ad−bc","A⁻¹ = adj(A)/det(A)"],"fml"]]}
+]},
+{n:5,i:"m11-u5",t:"Vectors",o:"Expands multi-directional directed quantities to three-dimensional ℝ³ coordinates.",p:[
+{n:"5.1",t:"Spatial Vector Geometry",i:[["Formulas",["u⃗·v⃗ = ‖u‖‖v‖cosθ","‖u⃗×v⃗‖ = ‖u‖‖v‖sinθ"],"fml"],["Learning Outcomes","Perpendicular if u⃗·v⃗ = 0."]]}
+]},
+{n:6,i:"m11-u6",t:"Transformations of the Plane",o:"Investigates operations that move and scale objects across coordinate planes.",p:[
+{n:"6.1",t:"Planar Map Transformations",i:[["Main Topics","Translations, reflections, rotations, dilations, shears."]]}
+]},
+{n:7,i:"m11-u7",t:"Statistics",o:"Examines metrics that quantify data dispersion and variance.",p:[
+{n:"7.1",t:"Dispersion Analysis",i:[["Formulas",["s² = Σfᵢ(xᵢ−x̄)²/(n−1)"],"fml"]]}
+]},
+{n:8,i:"m11-u8",t:"Probability",o:"Evaluates conditional scenarios and dependent multi-stage events.",p:[
+{n:"8.1",t:"Conditional Environments",i:[["Formulas",["P(A|B) = P(A∩B)/P(B)"],"fml"]]}
+]}
+]},
+{n:12,a:"m12",u:[
+{n:1,i:"m12-u1",t:"Sequences and Series",o:"Introduces arithmetic and geometric progressions, sigma notation, partial sums, infinite series, and their applications in finance and growth modeling.",p:[
+{n:"1.1",t:"Sequences",i:[["Main Topics","Definition of a sequence, general term aₙ, recurrence relations, patterns in nature and economics."]]},
+{n:"1.2",t:"Arithmetic and Geometric Sequences",i:[["Main Topics","Common difference d, common ratio r, nth term formulas: aₙ = a₁ + (n−1)d and aₙ = a₁rⁿ⁻¹."]]},
+{n:"1.3",t:"Sigma Notation and Partial Sums",i:[["Formulas",["Sₙ = ⁿ⁄₂(2a₁ + (n−1)d) for arithmetic","Sₙ = a₁(rⁿ−1)/(r−1) for geometric"],"fml"]]},
+{n:"1.4",t:"Infinite Series",i:[["Main Topics","Convergence and divergence, sum of infinite geometric series: S_∞ = a₁/(1−r) for |r|<1."]]},
+{n:"1.5",t:"Applications in Daily Life",i:[["Learning Outcomes","Model population growth, loan repayments, and savings plans using sequences and series."]]}
+]},
+{n:2,i:"m12-u2",t:"Introduction to Calculus",o:"Introduces differentiation and integration — the two core branches of calculus — with emphasis on rates of change, optimization, and area under curves.",p:[
+{n:"2.1",t:"Exploring Rates of Change",i:[["Main Topics","Tangents to curves, gradients, intuitive notion of limits, continuity."]]},
+{n:"2.2",t:"Introduction to Derivatives",i:[["Formulas",["f'(x) = lim_{h→0}(f(x+h)−f(x))/h","(uv)' = u'v+uv'"],"fml"]]},
+{n:"2.3",t:"Maximum and Minimum Points",i:[["Main Topics","Critical points, first and second derivative tests, optimization problems."]]},
+{n:"2.4",t:"Applications of Derivatives",i:[["Learning Outcomes","Solve optimization problems (profit maximization, cost minimization, motion analysis)."]]},
+{n:"2.5",t:"Introduction to Integration",i:[["Formulas",["∫ₐᵇ f(x)dx = F(b)−F(a)","F'(x)=f(x)"],"fml"],["Key Terms",["Antiderivative","Definite Integral","Area Under a Curve"],"kt"]]},
+{n:"2.6",t:"Applications of Integration",i:[["Learning Outcomes","Compute areas, accumulated change, and total quantities from rates."]]}
+]},
+{n:3,i:"m12-u3",t:"Statistics",o:"Develops skills in data analysis covering measures of dispersion, frequency curves, sampling techniques, and interpretation of statistical data.",p:[
+{n:"3.1",t:"Measures of Absolute Dispersion",i:[["Main Topics","Range, interquartile range, quartile deviation, mean deviation."]]},
+{n:"3.2",t:"Variance and Standard Deviation",i:[["Formulas",["σ² = Σ(xᵢ−x̄)²/n","s² = Σ(xᵢ−x̄)²/(n−1)"],"fml"]]},
+{n:"3.3",t:"Measures of Relative Dispersion",i:[["Main Topics","Coefficient of variation, comparing variability across data sets."]]},
+{n:"3.4",t:"Frequency Curves and Sampling Techniques",i:[["Main Topics","Cumulative frequency curves (ogives), random vs. stratified sampling, bias in sampling."],["Key Terms",["Ogive","Simple Random Sample","Stratified Sampling"],"kt"]]}
+]},
+{n:4,i:"m12-u4",t:"Introduction to Linear Programming",o:"Explores optimization through linear inequalities and objective functions — formulating and solving problems graphically for real-world decision-making.",p:[
+{n:"4.1",t:"Graphical Solutions of Systems of Linear Inequalities",i:[["Main Topics","Graphing linear inequalities, shading half-planes, identifying feasible regions and corner points."]]},
+{n:"4.2",t:"Maximum and Minimum Values",i:[["Main Topics","Objective functions, evaluating corner points to find optimum values."],["Key Terms",["Feasible Region","Objective Function","Corner Point","Optimal Solution"],"kt"]]},
+{n:"4.3",t:"Applications",i:[["Learning Outcomes","Model and solve production, diet, transportation, and resource allocation problems using linear programming."]]}
+]},
+{n:5,i:"m12-u5",t:"Mathematical Applications in Business",o:"Connects mathematics with financial literacy — covering ratio and percentage, time value of money, saving, borrowing, taxation, and depreciation.",p:[
+{n:"5.1",t:"Basic Mathematical Concepts in Business",i:[["Main Topics","Ratio, rates, proportion, percentage, profit and loss, discount, markup."]]},
+{n:"5.2",t:"Time Value of Money",i:[["Formulas",["I = Prt (simple interest)","A = P(1+r)ⁿ (compound interest)"],"fml"]]},
+{n:"5.3",t:"Saving, Investing and Borrowing Money",i:[["Main Topics","Savings accounts, investment growth, loans and repayment plans, annuities."],["Key Terms",["Principal","Annuity","Amortization","APR"],"kt"]]},
+{n:"5.4",t:"Taxation",i:[["Main Topics","Income tax, Value Added Tax (VAT), tax brackets, payroll deductions."]]},
+{n:"5.5",t:"Depreciation",i:[["Main Topics","Straight-line method, declining-balance method, asset value over time."]]}
+]}
+]}
+]},
+{k:"physics",c:"sp",s:"Physics",n:"Physics",g:[
+{n:9,a:"p9",u:[
+{n:1,i:"p9-u1",t:"Physics and Human Society",o:"Connects foundational physics principles to technological developments and societal advancements.",p:[
+{n:"1.1",t:"The Nature and Scope of Physics",i:[["Main Topics","Historical milestones, mechanics, branches of classical and quantum physics."]]},
+{n:"1.2",t:"Physics Communities and Their Roles",i:[["Main Topics","Ethiopian Physics Society, role of physics in national development."]]},
+{n:"1.3",t:"Making of Physics Knowledge",i:[["Main Topics","Scientific method, role of experimentation and theory in physics."]]}
+]},
+{n:2,i:"p9-u2",t:"Physical Quantities",o:"Establishes universal metric measurement benchmarks and dimensional tracking rules.",p:[
+{n:"2.1",t:"Base and Derived Units",i:[["Main Topics","SI systems, scientific prefixes, dimensional consistency checks."],["Formulas",["[v]=LT⁻¹","[a]=LT⁻²","[F]=MLT⁻²"],"fml"]]},
+{n:"2.2",t:"Measurement and Safety",i:[["Main Topics","Precision, accuracy, measurement uncertainty, safety in physics laboratories."]]},
+{n:"2.3",t:"Classification of Physical Quantities",i:[["Main Topics","Scalar vs. vector quantities, fundamental vs. derived quantities, unit conversion."]]}
+]},
+{n:3,i:"p9-u3",t:"Motion in a Straight Line",o:"Evaluates linear kinematics using single-axis position tracking.",p:[
+{n:"3.1",t:"Position, Displacement, and Velocity",i:[["Main Topics","Average vs. instantaneous velocity, graphical representation of motion."]]},
+{n:"3.2",t:"Acceleration and Equations of Motion",i:[["Formulas",["v = u + at","s = ut + ½at²","v² = u² + 2as"],"fml"],["Learning Outcomes","Calculate free-fall velocities (g ≈ 9.81 m/s²)."]]}
+]},
+{n:4,i:"p9-u4",t:"Force, Work, Energy, and Power",o:"Explores dynamics, Newton's laws of motion, and energy conservation rules.",p:[
+{n:"4.1",t:"Newton's Laws of Motion",i:[["Main Topics","Inertia, F = ma, action-reaction pairs, applications in daily life."]]},
+{n:"4.2",t:"Work, Energy, and Power",i:[["Formulas",["W = Fd cosθ","KE = ½mv²","GPE = mgh","P = W/t"],"fml"],["Laws","Conservation of Mechanical Energy: KEᵢ+PEᵢ = KE_f+PE_f"]]}
+]},
+{n:5,i:"p9-u5",t:"Simple Machines",o:"Investigates mechanical configurations designed to alter the magnitude or direction of input forces.",p:[
+{n:"5.1",t:"Mechanical Advantage and Efficiency",i:[["Formulas",["MA = F_load/F_effort","VR = d_effort/d_load","η = (MA/VR)×100%"],"fml"]]},
+{n:"5.2",t:"Types of Simple Machines",i:[["Main Topics","Levers, pulleys, inclined planes, wedges, screws, wheel and axle."]]}
+]},
+{n:6,i:"p9-u6",t:"Mechanical Oscillation and Sound Wave",o:"Explores periodic oscillatory motion and the propagation of sound waves through various media.",p:[
+{n:"6.1",t:"Mechanical Oscillation",i:[["Main Topics","Simple harmonic motion, amplitude, period, frequency, energy in oscillatory systems."],["Formulas",["T = 1/f","x(t) = A cos(ωt + φ)"],"fml"]]},
+{n:"6.2",t:"Sound Waves",i:[["Main Topics","Longitudinal waves, speed of sound, pitch, loudness, resonance, applications."],["Formulas",["v = fλ"],"fml"]]}
+]},
+{n:7,i:"p9-u7",t:"Temperature and Thermometer",o:"Focuses on thermal expansion, temperature measurement scales, and heat transfer concepts.",p:[
+{n:"7.1",t:"Temperature and Thermal Expansion",i:[["Main Topics","Celsius, Fahrenheit, Kelvin scales; linear and volume expansion."],["Formulas",["ΔL = αL₀ΔT"],"fml"]]},
+{n:"7.2",t:"Heat Transfer and Calorimetry",i:[["Main Topics","Conduction, convection, radiation, heat capacity, specific heat capacity."],["Formulas",["Q = mcΔT"],"fml"]]}
+]}
+]},
+{n:10,a:"p10",u:[
+{n:1,i:"p10-u1",t:"Vector Quantities",o:"Focuses on geometric vector modeling and analytical coordinate resolution.",p:[
+{n:"1.1",t:"Scalars and Vectors",i:[["Main Topics","Difference between scalar and vector quantities, vector representation."]]},
+{n:"1.2",t:"Vector Addition and Subtraction",i:[["Main Topics","Graphical methods, triangle and parallelogram laws, polygon law."]]},
+{n:"1.3",t:"Vector Resolution",i:[["Formulas",["Aₓ = A cosθ","Aᵧ = A sinθ","‖A⃗‖ = √(Aₓ²+Aᵧ²)"],"fml"]]}
+]},
+{n:2,i:"p10-u2",t:"Uniformly Accelerated Motion",o:"Analyzes motion where velocity changes at a constant rate, including free fall and projectile concepts.",p:[
+{n:"2.1",t:"Position, Velocity, and Acceleration",i:[["Main Topics","Displacement vs. distance, average vs. instantaneous velocity, acceleration."]]},
+{n:"2.2",t:"Equations of Motion with Constant Acceleration",i:[["Formulas",["v = u + at","s = ut + ½at²","v² = u² + 2as"],"fml"]]},
+{n:"2.3",t:"Graphical Representation and Relative Velocity",i:[["Main Topics","Velocity-time graphs, displacement-time graphs, relative motion in one dimension."]]}
+]},
+{n:3,i:"p10-u3",t:"Elasticity and Static Equilibrium of Rigid Body",o:"Studies how materials deform under stress and the conditions for static equilibrium.",p:[
+{n:"3.1",t:"Elasticity and Plasticity",i:[["Main Topics","Elastic vs. plastic deformation, Hooke's law, elastic limit."]]},
+{n:"3.2",t:"Stress, Strain, and Young's Modulus",i:[["Formulas",["Y = Stress/Strain","Stress = F/A","Strain = ΔL/L"],"fml"]]},
+{n:"3.3",t:"Static Equilibrium",i:[["Main Topics","Conditions for equilibrium (ΣF = 0, Στ = 0), center of mass, torque."]]}
+]},
+{n:4,i:"p10-u4",t:"Static and Current Electricity",o:"Explores electric charges at rest and in motion, circuit theory, and electrical safety.",p:[
+{n:"4.1",t:"Electrostatics",i:[["Main Topics","Charging methods, electroscope, Coulomb's law, electric field."],["Formulas",["F_e = k_e|q₁q₂|/r²","E = F_e/q"],"fml"]]},
+{n:"4.2",t:"Current Electricity",i:[["Main Topics","Electric current, Ohm's law, resistance, series and parallel circuits."],["Formulas",["V = IR","R_series = R₁+R₂","1/R_par = 1/R₁+1/R₂"],"fml"]]}
+]},
+{n:5,i:"p10-u5",t:"Magnetism",o:"Explores magnetic fields, their sources, and interactions with electric currents.",p:[
+{n:"5.1",t:"Magnetic Fields and Forces",i:[["Main Topics","Magnets, magnetic field lines, Earth's magnetism, force on a current-carrying conductor."],["Formulas",["F = qvB sinθ"],"fml"]]},
+{n:"5.2",t:"Electromagnetic Induction",i:[["Main Topics","Faraday's law, Lenz's law, generators and transformers."],["Formulas",["ℰ = −N(ΔΦ_B/Δt)"],"fml"]]}
+]},
+{n:6,i:"p10-u6",t:"Electromagnetic Waves and Geometrical Optics",o:"Studies the nature of electromagnetic waves and the behavior of light.",p:[
+{n:"6.1",t:"Electromagnetic Waves",i:[["Main Topics","EM spectrum, properties of EM waves, speed of light, applications."]]},
+{n:"6.2",t:"Geometrical Optics",i:[["Main Topics","Reflection, refraction, mirrors, lenses, optical instruments."],["Formulas",["n = c/v","m = −dᵢ/dₒ"],"fml"]]}
+]}
+]},
+{n:11,a:"p11",u:[
+{n:1,i:"p11-u1",t:"Physics and Human Society",o:"Examines the role of physics in addressing societal challenges and technological innovation.",p:[
+{n:"1.1",t:"Importance of Physics to Society",i:[["Main Topics","Impact of physics on transport, health, economy, and technology."]]},
+{n:"1.2",t:"Physics Communities and Career Awareness",i:[["Main Topics","Ethiopian Physics Society, careers in physics and related fields."]]}
+]},
+{n:2,i:"p11-u2",t:"Vectors",o:"Applies vector operations to multidimensional spaces, including scalar and vector products.",p:[
+{n:"2.1",t:"Vector Operations",i:[["Main Topics","Vector addition, subtraction, scalar multiplication in 2D and 3D."]]},
+{n:"2.2",t:"Dot and Cross Products",i:[["Formulas",["A⃗·B⃗ = AₓBₓ+AᵧBᵧ+A_zB_z","A⃗×B⃗ = |A||B|sinθ n̂"],"fml"]]}
+]},
+{n:3,i:"p11-u3",t:"Motion in One and Two Dimensions",o:"Explores displacement, velocity, and acceleration vectors across multi-dimensional spaces.",p:[
+{n:"3.1",t:"Kinematics in One Dimension",i:[["Formulas",["v⃗(t) = dr⃗/dt","a⃗(t) = dv⃗/dt"],"fml"]]},
+{n:"3.2",t:"Projectile Motion",i:[["Main Topics","Horizontal and vertical components, range, time of flight, maximum height."],["Formulas",["R = (u² sin2α)/g","t_flight = (2u sinα)/g"],"fml"]]},
+{n:"3.3",t:"Circular Motion",i:[["Main Topics","Uniform circular motion, centripetal acceleration, angular velocity."],["Formulas",["a_c = v²/r"],"fml"]]}
+]},
+{n:4,i:"p11-u4",t:"Dynamics",o:"Focuses on the relationship between force, mass, and acceleration, including momentum conservation.",p:[
+{n:"4.1",t:"Newton's Laws and Applications",i:[["Main Topics","Applications of Newton's laws, friction, inclined planes."]]},
+{n:"4.2",t:"Momentum and Impulse",i:[["Formulas",["J⃗ = ∫F⃗ dt = Δp⃗","m₁u₁+m₂u₂ = m₁v₁+m₂v₂"],"fml"]]},
+{n:"4.3",t:"Work, Energy, and Power",i:[["Formulas",["W = ∫F(x)dx","W_net = ΔKE","P = Fv"],"fml"]]}
+]},
+{n:5,i:"p11-u5",t:"Heat Conduction and Calorimetry",o:"Investigates mechanisms of heat transfer and the measurement of thermal energy changes.",p:[
+{n:"5.1",t:"Conduction of Heat",i:[["Main Topics","Thermal conductivity, rate of heat transfer, insulating materials."],["Formulas",["Q/t = kA(ΔT/L)"],"fml"]]},
+{n:"5.2",t:"Heat Capacity and Calorimetry",i:[["Main Topics","Specific heat capacity, calorimetry experiments, phase changes."],["Formulas",["Q = mcΔT","Q = mL"],"fml"]]},
+{n:"5.3",t:"Thermal Expansion",i:[["Main Topics","Linear, area, and volume expansion; applications in engineering."],["Formulas",["ΔL = αL₀ΔT","ΔV = βV₀ΔT"],"fml"]]}
+]},
+{n:6,i:"p11-u6",t:"Electrostatics and Electric Circuit",o:"Examines electric fields, potentials, capacitors, and circuit analysis techniques.",p:[
+{n:"6.1",t:"Coulomb's Law and Electric Field",i:[["Formulas",["F = kq₁q₂/r²","E = kQ/r²"],"fml"]]},
+{n:"6.2",t:"Electric Potential and Capacitance",i:[["Main Topics","Electric potential, potential difference, capacitors, energy stored."],["Formulas",["V = kQ/r","C = Q/V"],"fml"]]},
+{n:"6.3",t:"Electric Circuits",i:[["Main Topics","Kirchhoff's rules, equivalent resistance, measuring current and voltage."]]}
+]},
+{n:7,i:"p11-u7",t:"Nuclear Physics",o:"Explores atomic structure, radioactive decay processes, and nuclear energy transformations.",p:[
+{n:"7.1",t:"The Nucleus and Radioactivity",i:[["Main Topics","Atomic structure, isotopes, types of radioactive decay (α, β, γ)."],["Formulas",["N(t) = N₀(½)^{t/T_½}"],"fml"]]},
+{n:"7.2",t:"Nuclear Reactions and Applications",i:[["Main Topics","Nuclear fission and fusion, nuclear power, safety and hazards."],["Formulas",["E = Δmc²"],"fml"]]}
+]}
+]},
+{n:12,a:"p12",u:[
+{n:1,i:"p12-u1",t:"Application of Physics in Other Fields",o:"Explores how physics principles underpin advances in other sciences, engineering, medicine, and technology.",p:[
+{n:"1.1",t:"Physics in Other Sciences",i:[["Main Topics","Physics in chemistry (atomic models), biology (medical imaging), geology (seismology), astronomy."]]},
+{n:"1.2",t:"Physics in Engineering and Technology",i:[["Main Topics","Civil, mechanical, electrical engineering applications; communication systems."]]},
+{n:"1.3",t:"Medical Physics and Defense",i:[["Main Topics","X-rays, MRI, ultrasound, radiation therapy; defense technology applications."]]}
+]},
+{n:2,i:"p12-u2",t:"Two-Dimensional Motion",o:"Analyzes projectile and rotational motion, planetary dynamics, and universal gravitation.",p:[
+{n:"2.1",t:"Projectile Motion",i:[["Formulas",["R = (u² sin2α)/g","h_max = (u² sin²α)/(2g)"],"fml"]]},
+{n:"2.2",t:"Rotational Motion and Dynamics",i:[["Main Topics","Angular displacement, velocity, acceleration; torque, moment of inertia."],["Formulas",["τ = Iα","L = Iω"],"fml"]]},
+{n:"2.3",t:"Planetary Motion and Gravitation",i:[["Main Topics","Kepler's laws, Newton's law of universal gravitation."],["Formulas",["F = Gm₁m₂/r²"],"fml"]]}
+]},
+{n:3,i:"p12-u3",t:"Fluid Mechanics",o:"Studies the behavior of fluids at rest and in motion, with practical safety applications.",p:[
+{n:"3.1",t:"Fluid Statics",i:[["Main Topics","Density, pressure, Pascal's principle, Archimedes' principle."],["Formulas",["P = ρgh","F_b = ρ_fluid·V·g"],"fml"]]},
+{n:"3.2",t:"Fluid Dynamics",i:[["Main Topics","Continuity equation, Bernoulli's principle, applications in daily life."],["Formulas",["A₁v₁ = A₂v₂","P + ½ρv² + ρgh = constant"],"fml"]]},
+{n:"3.3",t:"Safety and High Pressure",i:[["Main Topics","Hydraulic systems, safety measures in high-pressure environments."]]}
+]},
+{n:4,i:"p12-u4",t:"Electromagnetism",o:"Examines the unified theory of electricity and magnetism and its technological applications.",p:[
+{n:"4.1",t:"Magnetic Fields and Forces",i:[["Main Topics","Biot-Savart law, Ampere's law, force on current-carrying conductors."],["Formulas",["∮B⃗·dl⃗ = μ₀I_encl","F = BIL sinθ"],"fml"]]},
+{n:"4.2",t:"Electromagnetic Induction",i:[["Main Topics","Faraday's law, Lenz's law, AC generators, transformers."],["Formulas",["ℰ = −N(dΦ_B/dt)"],"fml"]]},
+{n:"4.3",t:"Electromagnetic Waves",i:[["Main Topics","Maxwell's equations, EM wave properties, the EM spectrum."]]}
+]},
+{n:5,i:"p12-u5",t:"Basics of Electronics",o:"Introduces semiconductor devices and their applications in modern electronic circuits.",p:[
+{n:"5.1",t:"Semiconductors",i:[["Main Topics","Conductors, insulators, semiconductors; p-type and n-type doping."]]},
+{n:"5.2",t:"Diodes and Rectification",i:[["Main Topics","p-n junction, forward and reverse bias, half-wave and full-wave rectification."]]},
+{n:"5.3",t:"Transistors and Integrated Circuits",i:[["Main Topics","Bipolar junction transistors, switching and amplification, logic gates, ICs."]]}
+]}
+]}
+]},
+{k:"chemistry",c:"sc",s:"Chemistry",n:"Chemistry",g:[
+{n:9,a:"c9",u:[
+{n:1,i:"c9-u1",t:"Chemistry and Its Importance",o:"Connects chemistry principles to industrial manufacturing, agriculture, and environmental management.",p:[
+{n:"1.1",t:"Scope and Application of Chemistry",i:[["Main Topics","Definition of matter, branches of chemistry, local industrial assets."]]}
+]},
+{n:2,i:"c9-u2",t:"Measurements and Scientific Methods",o:"Establishes universal laboratory testing standards, uncertainty rules, and tracking parameters.",p:[
+{n:"2.1",t:"Laboratory Metrics and Methods",i:[["Main Topics","Scientific method, SI base properties, uncertainty estimation, significant figures."]]}
+]},
+{n:3,i:"c9-u3",t:"Structure of the Atom",o:"Explores historical atomic models and subatomic particle distributions.",p:[
+{n:"3.1",t:"Subatomic Evolution and Configurations",i:[["Main Topics","Dalton, Thomson, Rutherford, Bohr models; protons, neutrons, electrons; isotopes."],["Formulas",["A = Z + N"],"fml"]]}
+]},
+{n:4,i:"c9-u4",t:"Periodic Classification of Elements",o:"Group elements based on valence structural configurations and recurrent physical trends.",p:[
+{n:"4.1",t:"Periodic Law and Trends",i:[["Principles","Modern Periodic Law: Properties are periodic functions of atomic numbers."],["Trends","Atomic radius, ionization energy, electronegativity."]]}
+]},
+{n:5,i:"c9-u5",t:"Chemical Bonding",o:"Investigates stable electron configurations through covalent or ionic attractions.",p:[
+{n:"5.1",t:"Molecules and Crystals",i:[["Main Topics","Octet rule, ionic/covalent/metallic bonds, Lewis dot structures."]]}
+]}
+]},
+{n:10,a:"c10",u:[
+{n:1,i:"c10-u1",t:"Chemical Reactions and Stoichiometry",o:"Applies the law of conservation of mass to balance chemical equations and quantify reactants and products.",p:[
+{n:"1.1",t:"Chemical Equations and Reactions",i:[["Main Topics","Writing and balancing equations, types of chemical reactions, oxidation-reduction."]]},
+{n:"1.2",t:"The Mole Concept and Stoichiometry",i:[["Formulas",["n = m/M","% Yield = (Actual/Theoretical)×100%"],"fml"]]}
+]},
+{n:2,i:"c10-u2",t:"Solutions",o:"Explores the formation, concentration, and properties of homogeneous mixtures.",p:[
+{n:"2.1",t:"Concentration of Solutions",i:[["Main Topics","Molarity, molality, mole fraction, percent composition; preparation of solutions."]]},
+{n:"2.2",t:"Solubility and Solution Stoichiometry",i:[["Main Topics","Factors affecting solubility, saturated/unsaturated/supersaturated solutions."]]}
+]},
+{n:3,i:"c10-u3",t:"Important Inorganic Compounds",o:"Explores properties, classifications, and reactions of oxides, acids, bases, and salts.",p:[
+{n:"3.1",t:"Oxides, Acids, Bases, and Salts",i:[["Main Topics","Classification of oxides, acid-base theories, pH scale, neutralization."],["Formulas",["pH = −log[H⁺]"],"fml"]]}
+]},
+{n:4,i:"c10-u4",t:"Energy Changes And Electro-Chemistry",o:"Examines energy changes in chemical reactions and the interconversion of chemical and electrical energy.",p:[
+{n:"4.1",t:"Energy Changes in Reactions",i:[["Main Topics","Exothermic and endothermic reactions, enthalpy, activation energy."]]},
+{n:"4.2",t:"Electrochemical Cells",i:[["Main Topics","Galvanic cells, electrolytic cells, cell potential, electrolysis."]]}
+]},
+{n:5,i:"c10-u5",t:"Metals And Non Metals",o:"Studies the properties, production, and uses of metals and nonmetals.",p:[
+{n:"5.1",t:"Properties and Production of Metals",i:[["Main Topics","General properties, extraction of Al, Fe, Cu; alloys."]]},
+{n:"5.2",t:"Production of Nonmetals",i:[["Main Topics","Production and uses of P, O₂, S, Cl₂."]]}
+]},
+{n:6,i:"c10-u6",t:"Hydrocarbons and Their Natural Sources",o:"Introduces organic chemistry through the study of hydrocarbons and their natural sources.",p:[
+{n:"6.1",t:"Saturated and Unsaturated Hydrocarbons",i:[["Main Topics","Alkanes, alkenes, alkynes; nomenclature, isomerism, preparation."],["Formulas",["Alkane: CₙH_{2n+2}","Alkene: CₙH_{2n}","Alkyne: CₙH_{2n−2}"],"fml"]]},
+{n:"6.2",t:"Aromatic Hydrocarbons and Natural Sources",i:[["Main Topics","Benzene structure, natural sources (petroleum, coal), industrial applications."]]}
+]}
+]},
+{n:11,a:"c11",u:[
+{n:1,i:"c11-u1",t:"Atomic Structure And Periodic Properties Of The Elements",o:"Explores quantum wave equations, electron probability densities, and periodic trends.",p:[
+{n:"1.1",t:"Quantum Numbers and Orbitals",i:[["Formulas",["ΔE = hf = hc/λ","λ = h/(mv)"],"fml"],["Key Terms",["Aufbau Principle","Pauli Exclusion","Hund's Rule"],"kt"]]}
+]},
+{n:2,i:"c11-u2",t:"Chemical Bonding",o:"Explores molecular geometries using valence bond and molecular orbital theories.",p:[
+{n:"2.1",t:"Molecular Geometry",i:[["Main Topics","VSEPR theory, hybridization (sp, sp², sp³), dipole moments, sigma/pi bonds."]]}
+]},
+{n:3,i:"c11-u3",t:"Physical State Of Matter",o:"Compares intermolecular force variations across gas laws, liquid lattices, and crystalline structures.",p:[
+{n:"3.1",t:"Intermolecular Fields and Real Gases",i:[["Formulas",["(P + an²/V²)(V − nb) = nRT"],"fml"]]}
+]},
+{n:4,i:"c11-u4",t:"Chemical Kinetics",o:"Factors that influence reaction rates, collision frequencies, and activation energies.",p:[
+{n:"4.1",t:"Reaction Rates and Mechanics",i:[["Formulas",["t_½ = ln2/k","ln(k₂/k₁) = (Eₐ/R)(1/T₁−1/T₂)"],"fml"]]}
+]},
+{n:5,i:"c11-u5",t:"Chemical Equilibrium",o:"Explores dynamic reversibility, Le Chatelier shifts, and multi-phase balance conditions.",p:[
+{n:"5.1",t:"Reversible Balance Shifts",i:[["Formulas",["K_p = K_c(RT)^{Δn}"],"fml"],["Principles","Le Chatelier's Principle"]]}
+]},
+{n:6,i:"c11-u6",t:"Some Important Oxygen-containing Organic Compounds",o:"Explores the structure, properties, and reactions of organic compounds containing oxygen.",p:[
+{n:"6.1",t:"Alcohols and Ethers",i:[["Main Topics","Nomenclature, classification, physical properties, preparation, and reactions of alcohols and ethers."]]},
+{n:"6.2",t:"Carbonyl Compounds",i:[["Main Topics","Aldehydes and ketones: structure, nomenclature, oxidation, and reduction reactions."]]},
+{n:"6.3",t:"Carboxylic Acids and Esters",i:[["Main Topics","Structure, acidity, esterification, and applications in daily life."]]}
+]}
+]},
+{n:12,a:"c12",u:[
+{n:1,i:"c12-u1",t:"Acid-Base Equilibrium",o:"Weak acid dissociation constants, buffer solutions, and pH titration curves.",p:[
+{n:"1.1",t:"Brønsted-Lowry and Lewis Systems",i:[["Formulas",["pH = pKₐ + log([Base]/[Acid])","K_w = Kₐ·K_b = 1.0×10⁻¹⁴"],"fml"]]}
+]},
+{n:2,i:"c12-u2",t:"Electrochemistry",o:"Redox half-reactions, galvanic cell potentials, and Faraday's electrolysis laws.",p:[
+{n:"2.1",t:"Redox Potentials and Electrolysis",i:[["Formulas",["E_cell = E°_cell − (0.0592/n)logQ","m = ItM/(nF)"],"fml"]]}
+]},
+{n:3,i:"c12-u3",t:"Industrial Chemistry",o:"Industrial-scale synthesis, efficiency, and environmental impacts.",p:[
+{n:"3.1",t:"Industrial Synthesis Processes",i:[["Processes","Haber (ammonia), Contact (sulfuric acid), Ostwald (nitric acid)."]]}
+]},
+{n:4,i:"c12-u4",t:"Polymers",o:"Macromolecular formations created through polymerization chains.",p:[
+{n:"4.1",t:"Macromolecular Polymerization",i:[["Main Topics","Addition and condensation polymerization, natural vs. synthetic polymers."]]}
+]},
+{n:5,i:"c12-u5",t:"Introduction to Environmental Chemistry",o:"Examines chemical processes in the environment and their impact on ecosystems.",p:[
+{n:"5.1",t:"Environmental Cycles and Pollution",i:[["Main Topics","N/P/C cycles, greenhouse effect, ozone depletion, water treatment."]]}
+]}
+]}
+]},
+{k:"biology",c:"sb",s:"Biology",n:"Biology",g:[
+{n:9,a:"b9",u:[
+{n:1,i:"b9-u1",t:"Introduction to Biology",o:"Explores the branches of biology, research tools, and safety protocols.",p:[
+{n:"1.1",t:"The Science of Life",i:[["Main Topics","Botany, zoology, microbiology, light microscopes, safety guidelines."]]},
+{n:"1.2",t:"Renowned Ethiopian Biologists",i:[["Main Topics","Contributions of Aklilu Lemma, Gebissa Ejeta, and other Ethiopian scientists."]]}
+]},
+{n:2,i:"b9-u2",t:"Characteristics and Classification of Organisms",o:"Examines the unifying features of living things and the hierarchical system of biological classification.",p:[
+{n:"2.1",t:"Characteristics of Living Things",i:[["Main Topics","Movement, respiration, sensitivity, growth, reproduction, excretion, nutrition."]]},
+{n:"2.2",t:"Classification Systems",i:[["Main Topics","Binomial nomenclature, taxonomic hierarchy, five-kingdom system, common Ethiopian species."]]}
+]},
+{n:3,i:"b9-u3",t:"Cells",o:"Structural differences between prokaryotic and eukaryotic cells and their organelles.",p:[
+{n:"3.1",t:"Cell Structure and Function",i:[["Main Topics","Cell theory, organelles (nucleus, mitochondria, ribosomes, chloroplasts), prokaryotes vs. eukaryotes."]]},
+{n:"3.2",t:"Cell Transport",i:[["Main Topics","Fluid mosaic membrane, diffusion, osmosis, active and passive transport."]]}
+]},
+{n:4,i:"b9-u4",t:"Reproduction",o:"Examines asexual and sexual reproduction in plants and animals.",p:[
+{n:"4.1",t:"Asexual Reproduction",i:[["Main Topics","Binary fission, budding, fragmentation, vegetative propagation."]]},
+{n:"4.2",t:"Sexual Reproduction",i:[["Main Topics","Gamete formation, fertilization, development in plants and animals."]]}
+]},
+{n:5,i:"b9-u5",t:"Human Health, Nutrition, and Disease",o:"Studies human nutrition, the digestive system, and infectious and non-infectious diseases.",p:[
+{n:"5.1",t:"Human Nutrition and Digestion",i:[["Main Topics","Food groups, balanced diet, digestive system, absorption."]]},
+{n:"5.2",t:"Diseases",i:[["Main Topics","Infectious (bacterial, viral, fungal) and non-infectious diseases, prevention, HIV/AIDS."]]}
+]},
+{n:6,i:"b9-u6",t:"Ecology",o:"Examines the relationships between organisms and their environment.",p:[
+{n:"6.1",t:"Ecosystems and Food Relationships",i:[["Main Topics","Abiotic and biotic factors, food chains, food webs, trophic levels."]]},
+{n:"6.2",t:"Recycling and Conservation",i:[["Main Topics","Carbon and nitrogen cycles, adaptations, conservation of natural resources."]]}
+]}
+]},
+{n:10,a:"b10",u:[
+{n:1,i:"b10-u1",t:"Sub-fields of Biology",o:"Introduces the major branches and specialized disciplines within biology.",p:[
+{n:"1.1",t:"Pure and Applied Fields",i:[["Main Topics","Zoology, botany, microbiology; pure vs. applied fields of biology."]]},
+{n:"1.2",t:"Major Discoveries in Biology",i:[["Main Topics","Microscope, penicillin, inheritance; contributions of Ethiopian biologists."]]}
+]},
+{n:2,i:"b10-u2",t:"Plants",o:"Explores plant structure, function, growth, and reproduction.",p:[
+{n:"2.1",t:"Plant Tissues and Organs",i:[["Main Topics","Root, stem, leaf structure; meristems, dermal, ground, and vascular tissues."]]},
+{n:"2.2",t:"Photosynthesis and Plant Growth",i:[["Main Topics","Light-dependent and independent reactions, factors affecting photosynthesis."]]}
+]},
+{n:3,i:"b10-u3",t:"Biochemical Molecules",o:"Examines the structure and function of organic molecules in living organisms.",p:[
+{n:"3.1",t:"Macromolecules of Life",i:[["Main Topics","Carbohydrates, lipids, proteins, nucleic acids; structure and function."]]},
+{n:"3.2",t:"Enzymes",i:[["Main Topics","Mechanism of enzyme action, factors affecting activity, inhibition."]]}
+]},
+{n:4,i:"b10-u4",t:"Cell Reproduction",o:"Studies the cell cycle, mitosis, and meiosis.",p:[
+{n:"4.1",t:"The Cell Cycle and Mitosis",i:[["Main Topics","Interphase, prophase, metaphase, anaphase, telophase; cytokinesis."]]},
+{n:"4.2",t:"Meiosis and Genetic Variation",i:[["Main Topics","Meiosis I and II, crossing over, independent assortment."]]}
+]},
+{n:5,i:"b10-u5",t:"Human Biology",o:"Explores the structure and function of human body systems.",p:[
+{n:"5.1",t:"Nervous and Endocrine Systems",i:[["Main Topics","Neuron structure, nerve impulse, reflex arc; hormones and regulation."]]},
+{n:"5.2",t:"Circulatory and Respiratory Systems",i:[["Main Topics","Heart structure, blood vessels, gas exchange, cellular respiration."]]},
+{n:"5.3",t:"Homeostasis and Excretion",i:[["Main Topics","Feedback mechanisms, kidney function, temperature regulation."]]}
+]},
+{n:6,i:"b10-u6",t:"Ecological Interactions",o:"Examines the interactions between organisms and their environment at various levels.",p:[
+{n:"6.1",t:"Ecosystem Dynamics",i:[["Main Topics","Population growth, carrying capacity, community interactions, biodiversity."]]},
+{n:"6.2",t:"Conservation and Sustainability",i:[["Main Topics","Threats to biodiversity, conservation strategies, sustainable resource use."]]}
+]}
+]},
+{n:11,a:"b11",u:[
+{n:1,i:"b11-u1",t:"Biology and Technology",o:"Explores the intersection of biology with technological innovation and research.",p:[
+{n:"1.1",t:"Biological Research in Ethiopia",i:[["Main Topics","Research institutions, Ethiopian biologists, contributions to global science."]]},
+{n:"1.2",t:"Biotechnology Applications",i:[["Main Topics","Genetic engineering, tissue culture, fermentation, applications in medicine and agriculture."]]}
+]},
+{n:2,i:"b11-u2",t:"Characteristics of animals",o:"Studies the diversity of animal life and their structural and functional adaptations.",p:[
+{n:"2.1",t:"Animal Classification",i:[["Main Topics","Invertebrates vs. vertebrates, major phyla, key characteristics."]]},
+{n:"2.2",t:"Animal Adaptations",i:[["Main Topics","Structural, physiological, and behavioral adaptations to various environments."]]}
+]},
+{n:3,i:"b11-u3",t:"Enzymes",o:"Examines the structure, function, and kinetics of biological catalysts.",p:[
+{n:"3.1",t:"Enzyme Structure and Function",i:[["Main Topics","Active site, lock-and-key and induced-fit models, specificity."]]},
+{n:"3.2",t:"Enzyme Kinetics and Inhibition",i:[["Main Topics","Factors affecting rate, Michaelis-Menten constant, competitive and non-competitive inhibition."]]}
+]},
+{n:4,i:"b11-u4",t:"Genetics",o:"Explores principles of inheritance, molecular genetics, and gene expression.",p:[
+{n:"4.1",t:"Mendelian Genetics",i:[["Main Topics","Laws of segregation and independent assortment, Punnett squares, pedigree analysis."]]},
+{n:"4.2",t:"Molecular Genetics",i:[["Main Topics","DNA replication, transcription, translation, mutations, gene regulation."]]}
+]},
+{n:5,i:"b11-u5",t:"The human body systems",o:"Examines the major organ systems of the human body and their functions.",p:[
+{n:"5.1",t:"Support and Movement",i:[["Main Topics","Skeletal system, muscular system, bone and muscle structure."]]},
+{n:"5.2",t:"Coordination and Control",i:[["Main Topics","Nervous system, sensory organs, endocrine system, homeostasis."]]},
+{n:"5.3",t:"Transport and Defense",i:[["Main Topics","Circulatory system, lymphatic system, immune response."]]}
+]},
+{n:6,i:"b11-u6",t:"Population and natural resources",o:"Examines the relationships between population dynamics, resource use, and sustainability.",p:[
+{n:"6.1",t:"Population Structure and Dynamics",i:[["Main Topics","Population growth models, age structure, carrying capacity."]]},
+{n:"6.2",t:"Natural Resources and Sustainability",i:[["Main Topics","Renewable and non-renewable resources, resource management, conservation."]]}
+]}
+]},
+{n:12,a:"b12",u:[
+{n:1,i:"b12-u1",t:"Application of Biology",o:"Explores the practical applications of biology in daily life, industry, and medicine.",p:[
+{n:"1.1",t:"Biology in Daily Life and Industry",i:[["Main Topics","Food production, pharmaceuticals, agriculture, forensic science."]]},
+{n:"1.2",t:"Ethical Issues in Biology",i:[["Main Topics","Bioethics, genetic engineering ethics, environmental responsibility."]]}
+]},
+{n:2,i:"b12-u2",t:"Microorganisms",o:"Studies the diversity, structure, and importance of microorganisms.",p:[
+{n:"2.1",t:"Types of Microorganisms",i:[["Main Topics","Bacteria, viruses, fungi, protozoa; structure, reproduction, and ecology."]]},
+{n:"2.2",t:"Microorganisms in Industry and Disease",i:[["Main Topics","Beneficial uses (fermentation, antibiotics), pathogenic microorganisms, disease control."]]}
+]},
+{n:3,i:"b12-u3",t:"Energy transformation",o:"Examines how living organisms capture, convert, and utilize energy.",p:[
+{n:"3.1",t:"Photosynthesis",i:[["Main Topics","Light-dependent reactions, Calvin cycle, factors affecting photosynthesis."]]},
+{n:"3.2",t:"Cellular Respiration",i:[["Main Topics","Glycolysis, Krebs cycle, electron transport chain, anaerobic pathways."]]}
+]},
+{n:4,i:"b12-u4",t:"Evolution",o:"Explores the mechanisms and evidence for evolutionary change over time.",p:[
+{n:"4.1",t:"Theories of Evolution",i:[["Main Topics","Lamarckism, Darwinism, natural selection, speciation."]]},
+{n:"4.2",t:"Evidence for Evolution",i:[["Main Topics","Fossil record, comparative anatomy, molecular evidence, biogeography."]]},
+{n:"4.3",t:"Human Evolution",i:[["Main Topics","Hominid lineage, key fossil discoveries, out-of-Africa theory."]]}
+]},
+{n:5,i:"b12-u5",t:"Human Body System",o:"Examines the structure and function of major human body systems in depth.",p:[
+{n:"5.1",t:"Nervous and Sensory Systems",i:[["Main Topics","Brain structure, spinal cord, sense organs (eye, ear), neural communication."]]},
+{n:"5.2",t:"Reproductive and Endocrine Systems",i:[["Main Topics","Gametogenesis, menstrual cycle, hormonal control, feedback mechanisms."]]}
+]},
+{n:6,i:"b12-u6",t:"Climate Change",o:"Examines the science of climate change and its biological impacts.",p:[
+{n:"6.1",t:"Causes and Evidence of Climate Change",i:[["Main Topics","Greenhouse gases, global temperature rise, melting ice, sea level change."]]},
+{n:"6.2",t:"Impacts and Mitigation",i:[["Main Topics","Effects on ecosystems, biodiversity loss, adaptation strategies, mitigation measures."]]}
+]}
+]}
+]}
+];
+
+// ═══ UNIT RELATIONSHIPS ═══
+const R={
+math:[
+{from:"m9-u1",to:"m10-u1",label:"Foundation"},
+{from:"m10-u1",to:"m11-u1",label:"Advanced"},
+{from:"m9-u3",to:"m10-u2",label:"Foundation"},
+{from:"m10-u2",to:"m12-u2",label:"Prerequisite"},
+{from:"m9-u4",to:"m12-u4",label:"Foundation"},
+{from:"m9-u5",to:"m10-u4",label:"Foundation"},
+{from:"m10-u4",to:"m12-u2",label:"Used in"},
+{from:"m9-u8",to:"m11-u5",label:"Extends 2D→3D"},
+{from:"m10-u7",to:"m11-u6",label:"Related"},
+{from:"m9-u9",to:"m11-u7",label:"Foundation"},
+{from:"m9-u9",to:"m11-u8",label:"Foundation"},
+{from:"m11-u7",to:"m12-u3",label:"Advanced"},
+{from:"m11-u8",to:"m12-u3",label:"Advanced"},
+{from:"m11-u3",to:"m11-u4",label:"Direct"},
+{from:"m12-u1",to:"m12-u2",label:"Foundation"},
+{from:"m9-u2",to:"m10-u3",label:"Related"}
+],
+physics:[
+{from:"p9-u3",to:"p10-u2",label:"Foundation"},
+{from:"p10-u2",to:"p11-u3",label:"Advanced"},
+{from:"p11-u3",to:"p12-u2",label:"Advanced"},
+{from:"p9-u4",to:"p11-u4",label:"Foundation"},
+{from:"p9-u7",to:"p11-u5",label:"Foundation"},
+{from:"p10-u1",to:"p11-u2",label:"Advanced"},
+{from:"p10-u4",to:"p11-u6",label:"Foundation"},
+{from:"p11-u6",to:"p12-u4",label:"Advanced"},
+{from:"p10-u5",to:"p12-u4",label:"Related"},
+{from:"p10-u6",to:"p12-u4",label:"Related"},
+{from:"p11-u6",to:"p12-u5",label:"Foundation"},
+{from:"p11-u7",to:"p12-u1",label:"Application"},
+{from:"p9-u1",to:"p11-u1",label:"Related"},
+{from:"p9-u5",to:"p12-u3",label:"Related"}
+],
+chemistry:[
+{from:"c9-u3",to:"c11-u1",label:"Foundation"},
+{from:"c9-u4",to:"c11-u1",label:"Related"},
+{from:"c9-u5",to:"c11-u2",label:"Foundation"},
+{from:"c10-u1",to:"c10-u2",label:"Prerequisite"},
+{from:"c10-u1",to:"c11-u4",label:"Prerequisite"},
+{from:"c10-u4",to:"c12-u2",label:"Advanced"},
+{from:"c10-u6",to:"c11-u6",label:"Foundation"},
+{from:"c11-u4",to:"c11-u5",label:"Related"},
+{from:"c11-u5",to:"c12-u1",label:"Foundation"},
+{from:"c12-u1",to:"c12-u2",label:"Related"},
+{from:"c12-u3",to:"c12-u5",label:"Application"}
+],
+biology:[
+{from:"b9-u3",to:"b10-u4",label:"Foundation"},
+{from:"b10-u4",to:"b11-u4",label:"Advanced"},
+{from:"b9-u3",to:"b10-u3",label:"Foundation"},
+{from:"b10-u3",to:"b11-u3",label:"Foundation"},
+{from:"b11-u3",to:"b12-u3",label:"Advanced"},
+{from:"b9-u5",to:"b10-u5",label:"Foundation"},
+{from:"b10-u5",to:"b11-u5",label:"Advanced"},
+{from:"b11-u5",to:"b12-u5",label:"Advanced"},
+{from:"b9-u6",to:"b10-u6",label:"Foundation"},
+{from:"b10-u6",to:"b11-u6",label:"Advanced"},
+{from:"b11-u6",to:"b12-u6",label:"Advanced"},
+{from:"b11-u4",to:"b12-u4",label:"Foundation"},
+{from:"b11-u1",to:"b12-u1",label:"Application"},
+{from:"b10-u2",to:"b12-u3",label:"Related"}
+]
+};
+
+// ═══ 65-DAY STUDY PLAN ═══
+const PLAN=[
+{week:1,days:"1–6",
+math:"G9 U1 Sets · U2 Number System · U3 Solving Equations",
+physics:"G9 U1 Physics & Society · U2 Physical Quantities · U3 Motion",
+chemistry:"G9 U1 Chemistry Importance · U2 Measurements · U3 Structure of Atom",
+biology:"G9 U1 Intro · U2 Classification · U3 Cells"},
+{week:2,days:"7–12",
+math:"G9 U4 Inequalities · U5 Trigonometry Intro · U6 Regular Polygons",
+physics:"G9 U4 Force/Work/Energy · U5 Simple Machines · U6 Oscillation & Sound",
+chemistry:"G9 U4 Periodic Classification · U5 Chemical Bonding · Review",
+biology:"G9 U4 Reproduction · U5 Health & Disease · U6 Ecology"},
+{week:3,days:"13–18",
+math:"G9 U7 Congruency & Similarity · U8 Vectors 2D · U9 Statistics & Probability",
+physics:"G9 U7 Temperature & Thermometer · Review · Review",
+chemistry:"Review G9 · Review G9 · Review G9",
+biology:"Review G9 · Review G9 · Review G9"},
+{week:4,days:"19–24",
+math:"G10 U1 Relations & Functions · U2 Polynomial Functions · U3 Exp/Log Functions",
+physics:"G10 U1 Vector Quantities · U2 Uniformly Accelerated Motion · U3 Elasticity & Equilibrium",
+chemistry:"G10 U1 Stoichiometry · U2 Solutions · U3 Inorganic Compounds",
+biology:"G10 U1 Sub-fields · U2 Plants · U3 Biochemical Molecules"},
+{week:5,days:"25–30",
+math:"G10 U4 Trig Functions · U5 Circles · U6 Solid Geometry",
+physics:"G10 U4 Static/Current Electricity · U5 Magnetism · U6 EM Waves & Optics",
+chemistry:"G10 U4 Energy Changes/Electrochem · U5 Metals & Nonmetals · U6 Hydrocarbons",
+biology:"G10 U4 Cell Reproduction · U5 Human Biology · U6 Ecological Interactions"},
+{week:6,days:"31–36",
+math:"G10 U7 Coordinate Geometry · Review · Review",
+physics:"Review G10 · Review G10 · Review G10",
+chemistry:"Review G10 · Review G10 · Review G10",
+biology:"Review G10 · Review G10 · Review G10"},
+{week:7,days:"37–42",
+math:"G11 U1 Further on Relations · U2 Rational Expressions · U3 Matrices",
+physics:"G11 U1 Physics & Society · U2 Vectors · U3 Motion 1D & 2D",
+chemistry:"G11 U1 Atomic Structure · U2 Chemical Bonding · U3 Physical State of Matter",
+biology:"G11 U1 Biology & Technology · U2 Animal Characteristics · U3 Enzymes"},
+{week:8,days:"43–48",
+math:"G11 U4 Determinants · U5 Vectors · U6 Transformations of the Plane",
+physics:"G11 U4 Dynamics · U5 Heat Conduction · U6 Electrostatics & Circuits",
+chemistry:"G11 U4 Chemical Kinetics · U5 Chemical Equilibrium · U6 Oxygen-containing Organics",
+biology:"G11 U4 Genetics · U5 Human Body Systems · U6 Population & Resources"},
+{week:9,days:"49–54",
+math:"G11 U7 Statistics · U8 Probability · Review",
+physics:"G11 U7 Nuclear Physics · Review · Review",
+chemistry:"Review G11 · Review G11 · Review G11",
+biology:"Review G11 · Review G11 · Review G11"},
+{week:10,days:"55–60",
+math:"G12 U1 Sequences & Series · U2 Introduction to Calculus · U3 Statistics",
+physics:"G12 U1 Application in Other Fields · U2 Two-Dimensional Motion · U3 Fluid Mechanics",
+chemistry:"G12 U1 Acid-Base Equilibrium · U2 Electrochemistry · U3 Industrial Chemistry",
+biology:"G12 U1 Application of Biology · U2 Microorganisms · U3 Energy Transformation"},
+{week:11,days:"61–65",
+math:"G12 U4 Linear Programming · U5 Business Math · Review",
+physics:"G12 U4 Electromagnetism · U5 Electronics · Review",
+chemistry:"G12 U4 Polymers · U5 Environmental Chemistry · Review",
+biology:"G12 U4 Evolution · U5 Human Body System · U6 Climate Change"}
+];
+
+// ═══ HELPERS ═══
+function uid(s){return s.key+'-u'}
+function unitById(id){for(const s of C)for(const g of s.g)for(const u of g.u)if(u.i===id)return u;return null}
+function getGradeOfUnit(id){for(const s of C)for(const g of s.g)for(const u of g.u)if(u.i===id)return g.n;return null}
+const colorMap={math:'var(--math)',physics:'var(--physics)',chemistry:'var(--chemistry)',biology:'var(--biology)'};
+const clsMap={math:'sm',physics:'sp',chemistry:'sc',biology:'sb'};
+
+// ═══ STATS ═══
+function getStats(){
+let tu=0,tt=0;
+const subs=C.map(s=>{
+let su=0,st=0;
+const gs=s.g.map(g=>{
+const uc=g.u.length;
+const tc=g.u.reduce((a,u)=>a+u.p.length,0);
+su+=uc;st+=tc;
+return{grade:g.n,units:uc,topics:tc};
+});
+tu+=su;tt+=st;
+return{key:s.k,cls:s.c,name:s.s,full:s.n,grades:gs,units:su,topics:st};
+});
+return{subjects:subs,totalUnits:tu,totalTopics:tt,totalSubjects:C.length};
+}
+
+// ═══ RENDER: DASHBOARD ═══
+function renderDashboard(){
+const st=getStats();
+let h='';
+h+=`<div class="stats-grid">
+<div class="stat-card"><div class="num">${st.totalUnits}</div><div class="label">Total Units</div><div class="sub">Across all subjects</div></div>
+<div class="stat-card"><div class="num">${st.totalSubjects}</div><div class="label">Subjects</div><div class="sub">${st.subjects.map(s=>s.name).join(' · ')}</div></div>
+<div class="stat-card"><div class="num">${st.totalTopics}</div><div class="label">Topics</div><div class="sub">Within all units</div></div>
+<div class="stat-card"><div class="num">9–12</div><div class="label">Grades</div><div class="sub">Complete coverage</div></div>
+</div>`;
+h+=`<div class="subj-breakdown"><h3 class="section-title">Subject Breakdown</h3>`;
+const maxU=Math.max(...st.subjects.map(s=>s.units));
+for(const s of st.subjects){
+h+=`<div class="subj-bar"><div class="name" style="color:${colorMap[s.key]}">${s.full}</div>
+<div class="track"><div class="seg" style="width:${(s.units/maxU)*100}%;background:${colorMap[s.key]}"></div></div>
+<div class="count">${s.units} units</div></div>
+<div class="grade-badges">`;
+for(const g of s.grades)h+=`<span class="badge">G${g.grade}: ${g.units}u</span>`;
+h+=`</div>`;
+}
+h+=`</div>`;
+const grades=[9,10,11,12];
+const maxGradeU=Math.max(...grades.map(g=>st.subjects.reduce((a,s)=>{const gr=s.grades.find(g2=>g2.grade===g);return a+(gr?gr.units:0);},0)));
+h+=`<div class="chart-wrap"><h3 class="section-title">Units per Grade</h3>
+<svg class="chart-svg" viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg">`;
+const barW=180/grades.length/4,gap=2,gGap=6,chartH=130,baseY=170;
+const col=[colorMap.math,colorMap.physics,colorMap.chemistry,colorMap.biology];
+for(let gi=0;gi<grades.length;gi++){
+const g=grades[gi];
+const gX=40+gi*(180/grades.length+gGap)+(180/grades.length-4*barW-3*gap)/2;
+for(let si=0;si<st.subjects.length;si++){
+const s=st.subjects[si];
+const gr=s.grades.find(g2=>g2.grade===g);
+const uc=gr?gr.units:0;
+const barH=chartH*(uc/maxGradeU);
+const x=gX+si*(barW+gap),y=baseY-barH;
+h+=`<rect x="${x}" y="${y}" width="${barW}" height="${barH||1}" rx="2" fill="${col[si]}" opacity="0.85"/>`;
+}
+h+=`<text x="${gX+2*barW+1.5*gap}" y="${baseY+14}" text-anchor="middle" font-size="11" fill="var(--g600)" font-weight="600">G${g}</text>`;
+}
+h+=`<text x="20" y="${baseY}" text-anchor="end" font-size="9" fill="var(--g400)">0</text>`;
+h+=`<text x="20" y="${baseY-chartH/2}" text-anchor="end" font-size="9" fill="var(--g400)">${Math.round(maxGradeU/2)}</text>`;
+h+=`<text x="20" y="${baseY-chartH+4}" text-anchor="end" font-size="9" fill="var(--g400)">${maxGradeU}</text>`;
+h+=`</svg><div class="chart-legend">`;
+for(let si=0;si<st.subjects.length;si++)h+=`<span><span class="dot" style="background:${col[si]}"></span>${st.subjects[si].name}</span>`;
+h+=`</div></div>`;
+document.getElementById('page-dashboard').innerHTML=h;
+}
+
+// ═══ RENDER: SUBJECTS ═══
+function renderUnitCard(u){
+let h=`<div class="unit-card" id="${u.i}"><div class="unit-card-header" onclick="this.parentElement.classList.toggle('cl')"><h3>Unit ${u.n} – ${u.t}</h3><span class="tog">▼</span></div><div class="unit-card-body"><div class="ov">${u.o}</div>`;
+for(const p of u.p){
+h+=`<div class="top"><h4>${p.n} ${p.t}</h4><ul>`;
+for(const it of p.i){
+if(typeof it==='string'){h+=`<li>${it}</li>`;continue;}
+const lbl=it[0],val=it[1];
+if(it.length===3&&it[2]==='fml'){
+let t='';for(const f of val)t+=`<span class="fml">${f}</span> `;
+h+=`<li><span class="lbl">${lbl}:</span> ${t}</li>`;
+}else if(it.length===3&&it[2]==='kt'){
+let t='';for(const k of val)t+=`<span class="kt">${k}</span> `;
+h+=`<li><span class="lbl">${lbl}:</span> ${t}</li>`;
+}else{h+=`<li><span class="lbl">${lbl}:</span> ${val}</li>`;}
+}
+h+=`</ul></div>`;
+}
+h+=`</div></div>`;
+return h;
+}
+
+function renderSubjectContent(key,grade){
+const s=C.find(x=>x.k===key);
+if(!s)return '';
+let h='';
+h+=`<div class="subject-section ${clsMap[key]}"><div class="subject-header" style="border-bottom-color:${colorMap[key]}"><span class="sbj">${s.s}</span><h2>${s.n}</h2></div>`;
+const grades=grade?s.g.filter(g=>g.n===grade):s.g;
+for(const g of grades){
+h+=`<div class="grade-block" id="${g.a}"><div class="grade-title">Grade ${g.n}</div>`;
+for(const u of g.u)h+=renderUnitCard(u);
+if(grades.length>1)h+=`<div class="grade-connector">↓</div>`;
+h+=`</div>`;
+}
+h+=`</div>`;
+return h;
+}
+
+function renderSubjectsPage(key,anchor){
+if(!key)key='math';
+let h=`<div class="subj-tabs" id="subjTabs">`;
+for(const s of C){
+const a=s.k===key?' active':'';
+h+=`<button class="subj-tab${a}" data-subj="${s.k}" style="--tab-color:${colorMap[s.k]}">${s.s}</button>`;
+}
+h+=`</div><div class="grade-tabs" id="gradeTabs">`;
+const subj=C.find(s=>s.k===key);
+if(subj)for(const g of subj.g){
+const a=g.n===currentGrade?' active':'';
+h+=`<button class="grade-tab${a}" data-grade="${g.n}">G${g.n}</button>`;
+}
+h+=`</div><div id="subjectContent">${renderSubjectContent(key,currentGrade)}</div>`;
+document.getElementById('page-subjects').innerHTML=h;
+document.querySelectorAll('#page-subjects .unit-card').forEach(c=>c.classList.add('cl'));
+document.querySelectorAll('#subjTabs .subj-tab').forEach(btn=>{
+btn.addEventListener('click',()=>{currentSubject=btn.dataset.subj;currentGrade=9;renderSubjectsPage(currentSubject);});
+});
+document.querySelectorAll('#gradeTabs .grade-tab').forEach(btn=>{
+btn.addEventListener('click',()=>{currentGrade=Number(btn.dataset.grade);renderSubjectsPage(currentSubject);});
+});
+if(anchor){setTimeout(()=>{const el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},50);}
+}
+
+// ═══ RENDER: FLOW (RELATIONSHIPS) ═══
+function renderFlowPage(key){
+if(!key)key='math';
+let h=`<div class="subj-tabs" id="flowTabs">`;
+for(const s of C){
+const a=s.k===key?' active':'';
+h+=`<button class="subj-tab${a}" data-fsubj="${s.k}" style="--tab-color:${colorMap[s.k]}">${s.s}</button>`;
+}
+h+=`</div><div id="flowContent"></div>`;
+document.getElementById('page-flow').innerHTML=h;
+document.querySelectorAll('#flowTabs .subj-tab').forEach(btn=>{
+btn.addEventListener('click',()=>{renderFlowPage(btn.dataset.fsubj);});
+});
+renderFlowChart(key);
+}
+
+function renderFlowChart(key){
+const s=C.find(x=>x.k===key);
+if(!s)return;
+const edges=R[key]||[];
+const grades=[9,10,11,12];
+const colW=150,colGap=20,marginL=30,marginR=30,marginT=50,boxH=32,boxGap=8;
+const totalW=grades.length*colW+(grades.length-1)*colGap+marginL+marginR;
+// Build per-grade unit lists
+const unitsByGrade={};
+for(const g of s.g)unitsByGrade[g.n]=g.u;
+const maxUnits=Math.max(...grades.map(g=>(unitsByGrade[g]||[]).length));
+const totalH=Math.max(200,maxUnits*(boxH+boxGap)+marginT+20);
+// Build position map
+const pos={};
+for(let gi=0;gi<grades.length;gi++){
+const gn=grades[gi];
+const uList=unitsByGrade[gn]||[];
+const cx=marginL+gi*(colW+colGap)+colW/2;
+for(let ui=0;ui<uList.length;ui++){
+const u=uList[ui];
+pos[u.i]={x:cx,y:marginT+ui*(boxH+boxGap)+boxH/2,grade:gn,idx:ui,total:uList.length};
+}
+}
+let svg=`<svg class="flow-svg" viewBox="0 0 ${totalW} ${totalH}" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="arrow-${key}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="${colorMap[key]}" opacity="0.6"/></marker></defs>`;
+// Grade column lines and titles
+for(let gi=0;gi<grades.length;gi++){
+const gn=grades[gi];
+const cx=marginL+gi*(colW+colGap)+colW/2;
+svg+=`<line x1="${cx}" y1="${marginT-20}" x2="${cx}" y2="${totalH-10}" class="grade-col-line"/>`;
+svg+=`<text x="${cx}" y="${marginT-25}" class="grade-col-title">Grade ${gn}</text>`;
+}
+// Draw edges
+for(const e of edges){
+const from=pos[e.from],to=pos[e.to];
+if(!from||!to)continue;
+const x1=from.x+colW/2-4,y1=from.y,x2=to.x-colW/2+4,y2=to.y;
+const cy=(y1+y2)/2;
+let d;
+if(from.grade===to.grade){
+d=`M${x1},${y1} C${x1+40},${y1} ${x2-40},${y2} ${x2},${y2}`;
+}else{
+const dx=x2-x1;
+d=`M${x1},${y1} C${x1+dx*0.4},${y1} ${x2-dx*0.4},${y2} ${x2},${y2}`;
+}
+svg+=`<path d="${d}" class="flow-arrow" stroke="${colorMap[key]}" marker-end="url(#arrow-${key})"/>`;
+const lx=(x1+x2)/2,ly=(y1+y2)/2-6;
+svg+=`<text x="${lx}" y="${ly}" class="flow-edge-label" fill="${colorMap[key]}">${e.label}</text>`;
+}
+// Draw unit boxes
+for(const g of s.g)for(const u of g.u){
+const p=pos[u.i];
+if(!p)continue;
+const x=p.x-colW/2+4,y=p.y-boxH/2,w=colW-8;
+svg+=`<g class="flow-box" onclick="document.getElementById('${u.i}').scrollIntoView({behavior:'smooth',block:'center'})">`;
+svg+=`<rect x="${x}" y="${y}" width="${w}" height="${boxH}" rx="6" fill="#fff" stroke="${colorMap[key]}" stroke-width="1.5"/>`;
+const shortT=u.t.length>24?u.t.slice(0,23)+'…':u.t;
+svg+=`<text x="${x+w/2}" y="${y+14}" class="flow-label" fill="var(--g800)">U${u.n}: ${shortT.slice(0,28)}</text>`;
+svg+=`<text x="${x+w/2}" y="${y+26}" class="flow-sub">Grade ${getGradeOfUnit(u.i)}</text>`;
+svg+=`</g>`;
+}
+svg+=`</svg>`;
+document.getElementById('flowContent').innerHTML=`<div class="flow-wrap"><p class="section-sub">Click any unit box to jump to its details · Arrows show prerequisite/relationship flow</p>${svg}</div>`;
+}
+
+// ═══ RENDER: STUDY PLAN (65-DAY) ═══
+function renderStudyPlan(){
+let h='';
+// Daily schedule template
+h+=`<div class="day-sched"><h3 class="section-title">Daily Schedule Template</h3>
+<p class="section-sub">7 hours/day · Monday–Saturday · Sunday off</p>
+<div class="row row-header"><span class="time">Time</span><span class="desc">Activity</span><span class="dur">Duration</span></div>
+<div class="row"><span class="time">07:00–09:00</span><span class="desc"><span class="slot sm" style="margin-right:.4rem">Subject A</span> Study new material (Mon/Wed/Fri rotation)</span><span class="dur">2h</span></div>
+<div class="row"><span class="time">09:00–09:30</span><span class="desc">Short break</span><span class="dur">30m</span></div>
+<div class="row"><span class="time">09:30–11:30</span><span class="desc"><span class="slot sc" style="margin-right:.4rem">Subject B</span> Study new material (Tue/Thu/Sat rotation)</span><span class="dur">2h</span></div>
+<div class="row"><span class="time">11:30–12:30</span><span class="desc">Lunch break</span><span class="dur">1h</span></div>
+<div class="row"><span class="time">12:30–14:30</span><span class="desc"><span class="slot rv" style="margin-right:.4rem">Practice</span> Solve problems & exercises for both subjects</span><span class="dur">2h</span></div>
+<div class="row"><span class="time">14:30–15:00</span><span class="desc">Short break</span><span class="dur">30m</span></div>
+<div class="row"><span class="time">15:00–16:00</span><span class="desc"><span class="slot rv" style="margin-right:.4rem">Review</span> Summarize key points, flashcard revision, preview next day</span><span class="dur">1h</span></div>
+</div>`;
+// Weekly rotation
+h+=`<div class="schedule"><h3 class="section-title">Weekly Rotation</h3>
+<p class="section-sub">Each subject gets 3 sessions per week · Mon/Wed/Fri = Math + Physics · Tue/Thu/Sat = Chemistry + Biology</p>
+<table><thead><tr><th>Day</th><th>Morning (2h)</th><th>Late Morning (2h)</th><th>Afternoon (2h practice)</th><th>Evening (1h review)</th></tr></thead>
+<tbody>
+<tr><td>Mon</td><td><span class="slot sm">Math</span></td><td><span class="slot sp">Physics</span></td><td>Practice</td><td>Review</td></tr>
+<tr><td>Tue</td><td><span class="slot sc">Chemistry</span></td><td><span class="slot sb">Biology</span></td><td>Practice</td><td>Review</td></tr>
+<tr><td>Wed</td><td><span class="slot sm">Math</span></td><td><span class="slot sp">Physics</span></td><td>Practice</td><td>Review</td></tr>
+<tr><td>Thu</td><td><span class="slot sc">Chemistry</span></td><td><span class="slot sb">Biology</span></td><td>Practice</td><td>Review</td></tr>
+<tr><td>Fri</td><td><span class="slot sm">Math</span></td><td><span class="slot sp">Physics</span></td><td>Practice</td><td>Review</td></tr>
+<tr><td>Sat</td><td><span class="slot sc">Chemistry</span></td><td><span class="slot sb">Biology</span></td><td>Practice</td><td>Review</td></tr>
+</tbody></table></div>`;
+// 65-day week-by-week plan
+h+=`<div class="schedule"><h3 class="section-title">65-Day Curriculum Plan</h3>
+<p class="section-sub">Mon–Sat · 7h/day · Total: 455 hours · 100 units across all grades & subjects</p>
+<table><thead><tr><th>Week</th><th>Days</th><th style="color:var(--math)">Math</th><th style="color:var(--physics)">Physics</th><th style="color:var(--chemistry)">Chemistry</th><th style="color:var(--biology)">Biology</th></tr></thead><tbody>`;
+for(const w of PLAN){
+h+=`<tr><td>${w.week}</td><td>${w.days}</td><td>${w.math}</td><td>${w.physics}</td><td>${w.chemistry}</td><td>${w.biology}</td></tr>`;
+}
+h+=`</tbody></table></div>`;
+// Phase summary
+h+=`<div class="timeline" style="border-left:3px solid var(--math)"><h3 class="section-title">Phase Overview</h3>
+<div class="phase"><div class="weeks" style="background:var(--math);color:#fff;padding:.15rem .6rem;border-radius:4px;font-size:.72rem">Weeks 1–3</div><div class="desc"><strong>Grade 9</strong> — All subjects. Build foundational knowledge across all four subjects.</div></div>
+<div class="phase"><div class="weeks" style="background:var(--physics);color:#fff;padding:.15rem .6rem;border-radius:4px;font-size:.72rem">Weeks 4–6</div><div class="desc"><strong>Grade 10</strong> — All subjects. Deepen understanding with more advanced topics.</div></div>
+<div class="phase"><div class="weeks" style="background:var(--chemistry);color:#fff;padding:.15rem .6rem;border-radius:4px;font-size:.72rem">Weeks 7–9</div><div class="desc"><strong>Grade 11</strong> — All subjects. Focus on complex interconnected topics.</div></div>
+<div class="phase"><div class="weeks" style="background:var(--biology);color:#fff;padding:.15rem .6rem;border-radius:4px;font-size:.72rem">Weeks 10–11</div><div class="desc"><strong>Grade 12</strong> — All subjects. Complete the curriculum with final topics and review.</div></div>
+</div>`;
+// Subject totals
+const st=getStats();
+h+=`<div class="day-sched"><h3 class="section-title">Study Time Summary</h3>
+<div class="totals-row"><strong>Total study days:</strong> 65 (Mon–Sat) &nbsp;|&nbsp; <strong>Daily hours:</strong> 7 &nbsp;|&nbsp; <strong>Total hours:</strong> 455 &nbsp;|&nbsp; <strong>Total units:</strong> 100</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;margin-top:1rem">`;
+for(const s of st.subjects){
+h+=`<div style="background:var(--g50);border-radius:8px;padding:.75rem;border-left:3px solid ${colorMap[s.key]}">
+<div style="font-size:.82rem;font-weight:700;margin-bottom:.25rem;color:${colorMap[s.key]}">${s.full}</div>
+<div style="font-size:.72rem;color:var(--g500)">${s.units} units · ~${Math.round(455*s.units/100)} hours · ${Math.round(s.units/100*65)} days</div>
+</div>`;
+}
+h+=`</div></div>`;
+document.getElementById('page-studyplan').innerHTML=h;
+}
+
+function renderLegend(){
+let h='';
+const m={sm:['var(--math)','Math'],sp:['var(--physics)','Physics'],sc:['var(--chemistry)','Chemistry'],sb:['var(--biology)','Biology']};
+for(const s of C){const v=m[s.c];h+=`<span><span class="dot" style="background:${v[0]}"></span>${v[1]}</span>`;}
+return h;
+}
+
+// ═══ ROUTING ═══
+let currentPage='dashboard',currentSubject='math',currentGrade=9,pendingAnchor=null;
+
+function showPage(name){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+const page=document.getElementById('page-'+name);
+if(page)page.classList.add('active');
+document.querySelectorAll('.nav-main a').forEach(a=>a.classList.toggle('active',a.dataset.page===name));
+document.querySelectorAll('.bottom-nav a').forEach(a=>a.classList.toggle('active',a.dataset.page===name));
+if(name==='dashboard')renderDashboard();
+else if(name==='subjects'){renderSubjectsPage(currentSubject,pendingAnchor);pendingAnchor=null;}
+else if(name==='flow')renderFlowPage(currentSubject);
+else if(name==='studyplan')renderStudyPlan();
+currentPage=name;
+document.getElementById('sidebar').classList.remove('open');
+}
+
+function showSubject(key,anchor){
+currentSubject=key;pendingAnchor=anchor||null;showPage('subjects');
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+
+// ═══ INIT ═══
+document.addEventListener('DOMContentLoaded',()=>{
+document.getElementById('legend').innerHTML=renderLegend();
+document.querySelectorAll('.nav-main a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();showPage(a.dataset.page);});});
+document.querySelectorAll('.bottom-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();showPage(a.dataset.page);});});
+showPage('dashboard');
+});
+</script>
+</body>
+</html>
